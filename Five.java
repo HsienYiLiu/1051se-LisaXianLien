@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+public void test(){
+   int a = 0;
+}
 public class Five extends JFrame{
     JLabel label;
     public Five(){
