@@ -15,9 +15,9 @@ function getMoney() {
     $sql = "select * from player where pid = 1;";
     return mysqli_query($conn,$sql);
 }
-function gainMoney() {
+function gainMoney($i) {
     global $conn;
-    $sql = "UPDATE `player` SET `money`= money+30 WHERE `pid`= 123;";
+    $sql = "UPDATE `player` SET `money`= money+30 WHERE `pid`= $i;";
     return mysqli_query($conn,$sql);
 }
 function updateMechine($i,$bid) {
@@ -37,36 +37,18 @@ function updateMeterial($i,$money) {
 }
 function getBackpage($i) {
     global $conn;
-    $sql = "SELECT c.quantity,a.mname FROM material a LEFT JOIN minventory c ON a.mid = c.mid where pid = $i";
+    $sql = "SELECT a.mname,c.quantity FROM material a LEFT JOIN minventory c ON a.mid = c.mid where pid = $i";
     return mysqli_query($conn,$sql);
 }
-
-/*
-function push($mid) {
+function getBread() {
     global $conn;
-    $sql = "update guestbook set push = push+1 where id = $mid;";
+    $sql = "SELECT bid,quantity FROM `bread`";
     return mysqli_query($conn,$sql);
 }
-
-function addMsg($title, $msg, $name) {
+function updateSell($i) {
     global $conn;
-    $title=mysqli_real_escape_string($conn,$title);
-    $msg=mysqli_real_escape_string($conn,$msg);
-    $name=mysqli_real_escape_string($conn,$name);
-    if ($title) { //if title is not empty
-        $sql = "insert into guestbook (title, msg, name) values ('$title', '$msg','$name');";
-        return mysqli_query($conn, $sql);
-    } else {
-        return false;
-    }
-}
-
-function delMsg($msgID) {
-    global $conn;
-    $sql = "delete from guestbook where id=$msgID;";
+    $sql = "UPDATE `bread` SET `quantity`= quantity-1  WHERE  `bid` = $i";
     return mysqli_query($conn,$sql);
-}*/
-
-
+}
 
 ?>

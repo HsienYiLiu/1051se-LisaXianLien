@@ -18,7 +18,7 @@ font-size: 14pt;
 table tr td {
 padding: 10px;
 }
-<!-- .bg {
+.bg {
 position: fixed;
 top: 0;
 left: 0;
@@ -41,20 +41,17 @@ width: 100%;
 {
 opacity:0.5;
 filter:alpha(opacity=60);
-} -->
-div {
-margin: 100px auto;
-width: 800px;
-padding: 50px 100px;
-position:relative;
 }
+
 </style>
-<!-- <div class="bg">
+<div class="bg">
     <img class="demo" src="d.jpg" width="1380px" height="800px">
-</div> -->
-<div id="b" align="left" width="100px" height="50px">
-<h1>SHOP</h1>
 </div>
+<div id="b" align="left" width="100px" height="50px">
+<br />
+<h1>&nbsp;&nbsp;&nbsp;SHOP</h1>
+</div>
+
 <div id="content" align="center" width="800px" height="600px">
 <table class="rwd-table">
     <tr>
@@ -79,8 +76,15 @@ if ($mertial) {
 ?>
 </table>
 </div>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 <div id="aa" align="right" >
-<input type="button" value="返回" onclick="location.href='main.html'">
+<input type="button" value="返回" onclick="location.href='main.php'">&nbsp;&nbsp;&nbsp;
 </div>
 </form>
 </body>

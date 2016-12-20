@@ -65,7 +65,7 @@ filter:alpha(opacity=60);
         } else {
             echo "<tr><td>No data found!<td></tr>";
         }
-    ?>&nbsp;&nbsp;<a href="shop.php">SHOP</a>&nbsp;<a href="bag.php">BAG</a></h1>
+    ?>&nbsp;&nbsp;<a href="shop.php">SHOP</a>&nbsp;<a href="bag.php">BAG</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1>
 </div>
 <br />
 <hr />
@@ -85,7 +85,7 @@ filter:alpha(opacity=60);
 <br />
 <br />
 <br />
-<div id="rr" align="left">
+<div id="rr" align="right">
     <input type="button" value="販賣" onclick="location.href='sell.php'">
     <input type="button" value="販賣" onclick="location.href='sell.php'">
     <input type="button" value="販賣" onclick="location.href='sell.php'">
@@ -93,7 +93,7 @@ filter:alpha(opacity=60);
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;吐司&nbsp;
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;波蘿麵包&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;法國麵包
+    &nbsp;&nbsp;&nbsp;&nbsp;法國麵包&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </div>
 </div>
 </body>

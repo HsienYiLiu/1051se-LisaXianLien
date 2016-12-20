@@ -18,16 +18,39 @@ font-size: 14pt;
 table tr td {
 padding: 10px;
 }
-div {
-margin: 100px auto;
-width: 800px;
-padding: 50px 100px;
-position:relative;
+.bg {
+position: fixed;
+top: 0;
+left: 0;
+bottom: 0;
+right: 0;
+z-index: -999;
+}
+.bg img {
+min-height: 100%;
+min-width: 1000px;
+width: 100%;
+}
+@media screen and (max-width: 1000px) {
+    img.bg {
+    left: 50%;
+    margin-left: -500px;
+    }
+}
+.demo
+{
+opacity:0.5;
+filter:alpha(opacity=60);
 }
 </style>
-<div id="rr" align="left" >
-<h1>BAG</h1>
+<div class="bg">
+    <img class="demo" src="d.jpg" width="1380px" height="800px">
 </div>
+<br />
+<div id="rr" align="left" >
+<h1>&nbsp;&nbsp;&nbsp;BAG</h1>
+</div>
+
 <div id="aa" align="center">
 <table class="rwd-table">
     <tr>
@@ -37,8 +60,8 @@ position:relative;
 <?php
 if ($back) {
     while ($rs=mysqli_fetch_assoc($back)) {
-        echo  "<tr><td>{$rs['quantity']}</td>";
-        echo "<td>" , $rs['mname'], "</td></tr>";
+        echo  "<tr><td>{$rs['mname']}</td>";
+        echo "<td>" , $rs['quantity'], "</td></tr>";
     }
 } else {
     echo "<tr><td>No data found!<td></tr>";
@@ -46,8 +69,15 @@ if ($back) {
 ?>
 </table>
 </div>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 <div id="bb" align="right" >
-<input type="button" value="返回" onclick="location.href='main.html'">
+<input type="button" value="返回" onclick="location.href='main.php'">&nbsp;&nbsp;&nbsp;
 </div>
 </form>
 </body>
