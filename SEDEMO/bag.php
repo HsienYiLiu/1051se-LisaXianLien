@@ -25,23 +25,28 @@ padding: 50px 100px;
 position:relative;
 }
 </style>
+<div id="rr" align="left" >
+<h1>BAG</h1>
+</div>
+<div id="aa" align="center">
 <table class="rwd-table">
-　 <tr>
-　　 <th>材料</th>
-　　 <th>數量</th>
-　 </tr>
+    <tr>
+        <th>材料</th>
+        <th>數量</th>
+    </tr>
 <?php
 if ($back) {
-	while (	$rs=mysqli_fetch_assoc($back)) {
-		echo  "<tr><td>{$rs['quantity']}</td>";
-		echo "<td>" , $rs['mname'], "</td></tr>";
-	}
+    while ($rs=mysqli_fetch_assoc($back)) {
+        echo  "<tr><td>{$rs['quantity']}</td>";
+        echo "<td>" , $rs['mname'], "</td></tr>";
+    }
 } else {
-	echo "<tr><td>No data found!<td></tr>";
+    echo "<tr><td>No data found!<td></tr>";
 }
 ?>
 </table>
-<div id="aa" align="right" >
+</div>
+<div id="bb" align="right" >
 <input type="button" value="返回" onclick="location.href='main.html'">
 </div>
 </form>

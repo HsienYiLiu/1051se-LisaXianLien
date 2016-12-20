@@ -1,9 +1,9 @@
 <?php
 session_start();
 $host = 'localhost';
-$user = 'factory';
+$user = 'sedemo';
 $pass = '123456';
-$db = 'factory';
+$db = 'sedemo';
 $conn = mysqli_connect($host, $user, $pass,$db) or die('Error with MySQL connection'); //跟MyMSQL連線並登入
 $_SESSION['Id'] = "";
 $_SESSION['pwd'] = "";
@@ -18,7 +18,7 @@ mysqli_select_db($conn, $db); //選擇資料庫
     if ($result = mysqli_query($conn,$sql)) {
         if ($row=mysqli_fetch_array($result)) {
             $_SESSION['Id'] = $_POST['id'];
-            header("Refresh:0.5; url=main.html");
+            header("Refresh:0.5; url=main.php");
             exit(0); 
         }
         else {

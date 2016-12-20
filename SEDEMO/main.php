@@ -1,3 +1,8 @@
+<?php
+session_start();
+require("Api.php");
+$Money=getMoney();
+?>
 <!DOCTYPE HTML>
 <!-- 最新編譯和最佳化的 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
@@ -52,15 +57,15 @@ filter:alpha(opacity=60);
 </div>
 <div id="container">
 <div id="header" align="right">
-    <h1>MONEY;<?php
-if ($money) {
-	while (	$rs=mysqli_fetch_assoc($money)) {
-		echo $rs['money'];
-	}
-} else {
-	echo "<tr><td>No data found!<td></tr>";
-}
-?>&nbsp;&nbsp;<a href="shop.php">SHOP</a>&nbsp;<a href="bag.php">BAG</a></h1>
+    <h1>MONEY : 
+    <?php if ($Money) {
+            while (	$rs=mysqli_fetch_assoc($Money)) {
+                echo $rs['money'];
+            }
+        } else {
+            echo "<tr><td>No data found!<td></tr>";
+        }
+    ?>&nbsp;&nbsp;<a href="shop.php">SHOP</a>&nbsp;<a href="bag.php">BAG</a></h1>
 </div>
 <br />
 <hr />

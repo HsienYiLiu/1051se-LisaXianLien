@@ -18,6 +18,30 @@ font-size: 14pt;
 table tr td {
 padding: 10px;
 }
+<!-- .bg {
+position: fixed;
+top: 0;
+left: 0;
+bottom: 0;
+right: 0;
+z-index: -999;
+}
+.bg img {
+min-height: 100%;
+min-width: 1000px;
+width: 100%;
+}
+@media screen and (max-width: 1000px) {
+    img.bg {
+    left: 50%;
+    margin-left: -500px;
+    }
+}
+.demo
+{
+opacity:0.5;
+filter:alpha(opacity=60);
+} -->
 div {
 margin: 100px auto;
 width: 800px;
@@ -25,12 +49,18 @@ padding: 50px 100px;
 position:relative;
 }
 </style>
-
+<!-- <div class="bg">
+    <img class="demo" src="d.jpg" width="1380px" height="800px">
+</div> -->
+<div id="b" align="left" width="100px" height="50px">
+<h1>SHOP</h1>
+</div>
+<div id="content" align="center" width="800px" height="600px">
 <table class="rwd-table">
-　 <tr>
-　　 <th>材料</th>
-　　 <th>價錢</th>
-　 </tr>
+    <tr>
+        <th>材料</th>
+        <th>價錢</th>
+    </tr>
 <?php
 $mertial1=rand(50,70);
 $mertial2=rand(100,200);
@@ -39,15 +69,16 @@ updateMeterial(1,$mertial1);
 updateMeterial(2,$mertial2);
 updateMeterial(3,$mertial3);
 if ($mertial) {
-	while (	$rs=mysqli_fetch_assoc($mertial)) {
-		echo "<tr><td>{$rs['mname']}</td>";
-		echo "<td>" , $rs['mprice'], "</td></tr>";
-	}
+    while ($rs=mysqli_fetch_assoc($mertial)) {
+        echo "<tr><td>{$rs['mname']}</td>";
+        echo "<td>" , $rs['mprice'], "</td></tr>";
+    }
 } else {
-	echo "<tr><td>No data found!<td></tr>";
+    echo "<tr><td>No data found!<td></tr>";
 }
 ?>
 </table>
+</div>
 <div id="aa" align="right" >
 <input type="button" value="返回" onclick="location.href='main.html'">
 </div>
