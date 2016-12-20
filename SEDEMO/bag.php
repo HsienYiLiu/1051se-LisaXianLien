@@ -33,8 +33,8 @@ position:relative;
 <?php
 if ($back) {
 	while (	$rs=mysqli_fetch_assoc($back)) {
-		echo  "<tr><td>{$rs['quantity']}</td>";
-		echo "<td>" , $rs['mname'], "</td></tr>";
+		echo "<tr><td>" , $rs['mname'], "</td>";
+		echo  "<td>{$rs['quantity']}</td></tr>";
 	}
 } else {
 	echo "<tr><td>No data found!<td></tr>";
@@ -42,7 +42,7 @@ if ($back) {
 ?>
 </table>
 <div id="aa" align="right" >
-<input type="button" value="返回" onclick="location.href='main.html'">
+<input type ="button" onclick="history.back()" value="回到上一頁"></input>
 </div>
 </form>
 </body>

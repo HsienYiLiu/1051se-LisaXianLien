@@ -49,7 +49,7 @@ if ($mertial) {
 ?>
 </table>
 <div id="aa" align="right" >
-<input type="button" value="返回" onclick="location.href='main.html'">
+<input type ="button" onclick="history.back()" value="回到上一頁"></input>
 </div>
 </form>
 </body>

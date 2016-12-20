@@ -9,24 +9,24 @@ $back =getBackpage(1);
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="text/javascript" src="jquery.js"></script>
 
-<form>
-<input type="button" value=" 背包~ " onClick="confirmChoice( )" >
-</form>
-<script>
-function confirmChoice( )
-{　 if ( confirm ("<?php
-if ($back) {
-	while (	$rs=mysqli_fetch_assoc($back)) {
-		echo $rs['quantity'];
-		echo $rs['mname'];
-	}
-} else {
-	echo "<tr><td>No data found!<td></tr>";
-}
-?>") )
-　　     {　document.authorPic.src="author.jpg"　}
-}
-</script>
+  <form>
+  <input type="button" value=" 背包~ " onClick="confirmChoice( )" >
+  </form>
+  <script>
+  function confirmChoice( ){　
+     if ( confirm ("<?php
+  if ($back) {
+  	while (	$rs=mysqli_fetch_assoc($back)) {
+  		echo $rs['quantity'];
+  		echo $rs['mname'];
+  	}
+  } else {
+  	echo "<tr><td>No data found!<td></tr>";
+  }
+  ?>") )
+  　　     {　document.authorPic.src="author.jpg"　}
+  }
+  </script>
 
 <table width="200" border="1">
   <tr>
@@ -71,8 +71,6 @@ function handleBomb(bombID) {
 		alert("counting down, be patient.")
 	}
 }
-
-
 function checkBomb() {
 	now= new Date(); //get the current time
 	//check each bomb with a for loop

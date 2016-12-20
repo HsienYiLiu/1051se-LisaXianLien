@@ -14,14 +14,7 @@
 <hr />
 <p>
 <?php
-$host = 'localhost';
-$user = 'factory';
-$pass = '123456';
-$db = 'factory';
-$conn = mysqli_connect($host, $user, $pass,$db) or die('Error with MySQL connection'); //跟MyMSQL連線並登入
-mysqli_query($conn,"SET NAMES utf8"); //選擇編碼
-//mysql_select_db($db, $conn); //選擇資料庫
-
+require("dbconnect.php");
 $id=mysqli_real_escape_string($conn,$_POST['id']);
 $pwd=mysqli_real_escape_string($conn,$_POST['pwd']);
 $name=mysqli_real_escape_string($conn,$_POST['name']);
@@ -29,7 +22,7 @@ $email=mysqli_real_escape_string($conn,$_POST['email']);
 
 if($id != null && $pwd != null && $name != null && $email != null){
 if ($id) {
-    $sql = "insert into player (id, pwd, name, email) values ('$id', '$pwd', '$name', '$email');";
+    $sql = "insert into player (id, pwd, name, email,money) values ('$id', '$pwd', '$name', '$email','9000');";
     mysqli_query($conn,$sql) or die(mysqli_error($conn)); //執行SQL
     echo "加入會員成功";
     header("Refresh:0.5; url=index.php");
