@@ -50,5 +50,4 @@ function updateSell($i) {
     $sql = "UPDATE `bread` SET `quantity`= quantity-1  WHERE  `bid` = $i";
     return mysqli_query($conn,$sql);
 }
-
 ?>

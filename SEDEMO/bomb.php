@@ -1,4 +1,4 @@
- <?php
+<?php
 session_start();
 require("Api.php");
 $result=getMsgList();
@@ -9,24 +9,24 @@ $back =getBackpage(1);
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="text/javascript" src="jquery.js"></script>
 
-<form>
-<input type="button" value=" 背包~ " onClick="confirmChoice( )" >
-</form>
-<script>
-function confirmChoice( )
-{　 if ( confirm ("<?php
-if ($back) {
-	while (	$rs=mysqli_fetch_assoc($back)) {
-		echo $rs['quantity'];
-		echo $rs['mname'];
-	}
-} else {
-	echo "<tr><td>No data found!<td></tr>";
-}
-?>") )
-　　     {　document.authorPic.src="author.jpg"　}
-}
-</script>
+  <form>
+  <input type="button" value=" 背包~ " onClick="confirmChoice( )" >
+  </form>
+  <script>
+  function confirmChoice( ){　
+     if ( confirm ("<?php
+  if ($back) {
+  	while (	$rs=mysqli_fetch_assoc($back)) {
+  		echo $rs['quantity'];
+  		echo $rs['mname'];
+  	}
+  } else {
+  	echo "<tr><td>No data found!<td></tr>";
+  }
+  ?>") )
+  　　     {　document.authorPic.src="author.jpg"　}
+  }
+  </script>
 
 <table width="200" border="1">
   <tr>
@@ -47,7 +47,6 @@ if ($money) {
 ?>
 </table>
 <script language="javascript">
-
 function handleBomb(bombID) {
 	now = new Date(); //get the current time
 	tday = new Date(myArray[bombID]['expire'])
@@ -71,8 +70,6 @@ function handleBomb(bombID) {
 		alert("counting down, be patient.")
 	}
 }
-
-
 function checkBomb() {
 	now= new Date(); //get the current time
 	//check each bomb with a for loop
@@ -93,7 +90,6 @@ function checkBomb() {
 		}
 	}
 }
-
 //javascript, to set the timer on windows load event
 window.onload = function () {
 	//check the bomb status every 1 second
@@ -113,7 +109,6 @@ while($row=mysqli_fetch_assoc($result)) {
 	//generate the image tag, the div tag for timer text. Note on the use of $i in tag ID
 	echo "<img src='images/waiting.jpg' id='bomb$i'>";
   if($row['bid'] == 0){
-
     //echo"<button type="button" class="btn btn-default">Right</button>";
     echo "<button onclick='handleBomb($i)'></button>";
     echo "<button onclick='handleBomb($i)'>法國麵包</button>";

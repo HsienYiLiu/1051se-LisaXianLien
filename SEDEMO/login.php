@@ -18,7 +18,7 @@ mysqli_select_db($conn, $db); //選擇資料庫
     if ($result = mysqli_query($conn,$sql)) {
         if ($row=mysqli_fetch_array($result)) {
             $_SESSION['Id'] = $_POST['id'];
-            header("Refresh:0.5; url=main.php");
+            header("Refresh:0.5; url=main.php?_SESSION['Id']");
             exit(0); 
         }
         else {
