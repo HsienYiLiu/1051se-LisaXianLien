@@ -5,19 +5,24 @@ function getMsgList() {
     $sql = "select * from game;";
     return mysqli_query($conn,$sql);
 }
+function selectMechine() {
+    global $conn;
+    $sql = "select * from machine;";
+    return mysqli_query($conn,$sql);
+}
 function updateTime($newD,$i) {
     global $conn;
     $sql = "update game set expire ='$newD' where id=$i";
     return mysqli_query($conn,$sql);
 }
-function getMoney() {
+function getMoney($pid) {
     global $conn;
-    $sql = "select * from player where pid = 1;";
+    $sql = "select * from player where pid = $pid;";
     return mysqli_query($conn,$sql);
 }
-function gainMoney($i) {
+function gainMoney($i,$bid) {
     global $conn;
-    $sql = "UPDATE `player` SET `money`= money+30 WHERE `pid`= $i;";
+    $sql = "UPDATE `player` SET `money`= money + (select bprice from bread where bid = $bid) WHERE `pid`= $i";
     return mysqli_query($conn,$sql);
 }
 function updateMechine($i,$bid) {
@@ -50,5 +55,19 @@ function updateSell($i) {
     $sql = "UPDATE `bread` SET `quantity`= quantity-1  WHERE  `bid` = $i";
     return mysqli_query($conn,$sql);
 }
-
+function MechineMoney($i) {
+    global $conn;
+    $sql = "UPDATE `player` SET `money`= money -1000,`mnuber` = `mnuber`+1 WHERE `pid`= $i";
+    return mysqli_query($conn,$sql);
+}
+function insertMechine($mechine,$i,$status,$bid){
+  global $conn;
+  $sql = "INSERT INTO `machine`(`Mechid`, `pid`, `Mprice`, `status`, `bid`) VALUES ($mechine,$i,1000,$status,$bid)";
+  return mysqli_query($conn,$sql);
+}
+function bake($status,$mechine,$id){
+  global $conn;
+  $sql = "UPDATE `machine` SET `status`= $status,`bid`= $status WHERE `Mechid`= $mechine &`pid` = $id";
+  return mysqli_query($conn,$sql);
+}
 ?>

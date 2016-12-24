@@ -5,6 +5,7 @@ $result=getMsgList();
 $money =getMoney();
 $back =getBackpage(1);
 ?>
+
 <html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="text/javascript" src="jquery.js"></script>
@@ -26,6 +27,30 @@ $back =getBackpage(1);
   ?>") )
   　　     {　document.authorPic.src="author.jpg"　}
   }
+  </script>
+  <input type="button" id="btnAdd" value="Add Text Field">
+  <p id="fooBar">Fields:</p>
+<script language="javascript">
+  function add(type) {
+    //Create an input type dynamically.
+    var element = document.createElement("button");
+
+    //Assign different attributes to the element.
+    element.type = type;
+    element.value = type; // Really? You want the default value to be the type string?
+    element.name = type; // And the name too?
+    element.onclick = function() { // Note this is a function
+      alert("blabla");
+    };
+    var t = document.createTextNode("CLICK ME");
+    var foo = document.getElementById("fooBar");
+    //Append the element in page (in span).
+    element.appendChild(t);
+    foo.appendChild(element);
+  }
+  document.getElementById("btnAdd").onclick = function() {
+    add("text");
+  };
   </script>
 
 <table width="200" border="1">
