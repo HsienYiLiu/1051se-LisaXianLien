@@ -5,7 +5,7 @@ function getMsgList() {
     $sql = "select * from game;";
     return mysqli_query($conn,$sql);
 }
-function selectMechine() {
+  function selectMechine() {
     global $conn;
     $sql = "select * from machine;";
     return mysqli_query($conn,$sql);
@@ -67,7 +67,12 @@ function insertMechine($mechine,$i,$status,$bid){
 }
 function bake($status,$mechine,$id){
   global $conn;
-  $sql = "UPDATE `machine` SET `status`= $status,`bid`= $status WHERE `Mechid`= $mechine &`pid` = $id";
+  $sql = "UPDATE `machine` SET `status`= $status,`bid`= $status WHERE `Mechid`= $mechine and `pid` = $id";
+  return mysqli_query($conn,$sql);
+}
+function minisBom($bid,$mid,$i){
+  global $conn;
+  $sql = "UPDATE minventory set quantity = quantity -(SELECT quantity FROM `bom` WHERE bid = $bid and mid = $mid) where mid = $mid and pid = $i";
   return mysqli_query($conn,$sql);
 }
 ?>

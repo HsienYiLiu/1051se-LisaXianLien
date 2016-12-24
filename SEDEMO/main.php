@@ -2,7 +2,7 @@
 <?php
 session_start();
 require("Api.php");
-$money =getMoney($_SESSION['Id']);
+$money = getMoney($_SESSION['Id']);
 $bread =getBread();
 $mdetail = selectMechine()
 ?>
@@ -84,9 +84,11 @@ function Sell(bid,quantity) {
                           <?php
                           $i=0;
                           $status=array();
+													$expire=array();
                           if ($mdetail) {
                             while (	$rs=mysqli_fetch_assoc($mdetail)) {
                               $status[$i] = $rs['status'];
+															$expire[$i] = $rs['expire'];
                               $i++;
                             }
                           } else {
@@ -96,7 +98,11 @@ function Sell(bid,quantity) {
                           var mechine = "<?php echo $nowMechine;?>";
                           var value = "<?php echo $nowMoney;?>";
                           add();
-                          var status0 = "<?php echo $status[0];?>"
+													var expire =["<?php echo $expire[0];?>","<?php echo $expire[1];?>","<?php echo $expire[2];?>","<?php echo $expire[3];?>"];
+													for(var i = 0; i < 4; i++){
+															console.log(expire[i]);
+													}
+													var status0 = "<?php echo $status[0];?>"
                           var status1 = "<?php echo $status[1];?>"
                           var status2 = "<?php echo $status[2];?>"
                           var status3 = "<?php echo $status[3];?>"
@@ -106,9 +112,76 @@ function Sell(bid,quantity) {
                                   document.getElementById("btn_id"+i).setAttribute("disabled","disabled");
                               }
                           }
-                          //選擇要考的麵包種類
+													//製作炸蛋
+													function handleBomb(bombID) {
+														now = new Date(); //get the current time
+														tday = new Date(expire[bombID])
+														console.log(now, tday)
+														if (tday <= now) {
+															//use jQuery ajax to reset timer
+															$.ajax({
+																url: "json.php",
+																dataType: 'html',
+																type: 'POST',
+																data: { id: bombID}, //optional, you can send field1=10, field2='abc' to URL by this
+													      error: function(response) { //the call back function when ajax call fails
+																	 alert('Ajax request failed!');
+																},
+																success: function(txt) { //the call back function when ajax call succeed
+													        alert("Bomb" + bombID + ": " + txt)
+																	}
+															});
+														} else {
+															alert("counting down, be patient.")
+														}
+													}
+													function checkBomb() {
+														now= new Date();
+														for (i=0; i < expire.length;i++) {
+															tday=new Date(expire[i]); //convert the date string into date object in javascript
+															if (tday <= now) {
+																//expired, set the explode image and text
+																//$("#bomb" + i).attr('src',"images/bread.png");
+																$("#btn_id"+i).html("bread!");
+															} else {
+																//set the bomb image  and calculate count down
+																//$("#bomb" + i).attr('src',"images/waiting.jpg");
+																$("#btn_id"+i).html(Math.floor((tday-now)/1000))
+															}
+														}
+													}
+													//javascript, to set the timer on windows load event
+													window.onload = function () {
+														//check the bomb status every 1 second
+													    setInterval(function () {
+															checkBomb()
+													    }, 1000);
+													};
 
-                          function createRadioButton() {
+                          //選擇要考的麵包種類
+													function Bake(bid,mechine) {
+														if (bid != 0) {
+															//use jQuery ajax to reset timer
+															$.ajax({
+																url: "bake.php",
+																dataType: 'html',
+																type: 'POST',
+																data: {
+																	bid: bid,
+																	mechine : mechine
+																}, //optional, you can send field1=10, field2='abc' to URL by this
+													      error: function(response) { //the call back function when ajax call fails
+																	 alert('Ajax request failed!');
+																},
+																success: function(txt) { //the call back function when ajax call succeed
+													          location.href = "main.php";
+																	}
+															});
+														} else {
+															alert("沒麵包囉~")
+														}
+													}
+                          function createRadioButton(mechine) {
                             var foo = document.getElementById("fooBar");
                             // Create radio button object with value="First Choice" and then insert this element into the document hierarchy.
                             var newRadioButton1 = document.createElement('input');
@@ -134,18 +207,44 @@ function Sell(bid,quantity) {
                             foo.appendChild(newRadioButton3);
                             newRadioButton1.onclick = function() { // Note this is a function
                                 //document.getElementById('btn_id0').setAttribute("disabled","disabled");
-                                
+																if(mechine == 0){
+																		Bake(1,0);
+																		handleBomb(0);
+																}else if(mechine == 1){
+																		Bake(1,1);
+																		handleBomb(1);
+																}else if(mechine == 2){
+																	  Bake(1,2);
+																		handleBomb(3);
+																}else{
+																		Bake(1,3);
+																}
                             };
                             newRadioButton2.onclick = function() { // Note this is a function
                                 alert("烤麵包2");
+																if(mechine == 0){
+																		Bake(2,0);
+																}else if(mechine == 1){
+																		Bake(2,1);
+																}else if(mechine == 2){
+																		Bake(2,2);
+																}else{
+																		Bake(2,3);
+																}
                             };
                             newRadioButton3.onclick = function() { // Note this is a function
                                 alert("烤麵包3");
+																if(mechine == 0){
+																		Bake(3,0);
+																}else if(mechine == 1){
+																		Bake(3,1);
+																}else if(mechine == 2){
+																		Bake(3,2);
+																}else{
+																		Bake(3,3);
+																}
                             };
                           }
-                          //讀入當前使用者有幾台機器
-
-
                           //麵包機扣錢
                           function Mechine(bid) {
                           	if (mechine < 4) {

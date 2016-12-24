@@ -1,57 +1,12 @@
  <?php
 session_start();
 require("Api.php");
-$result=getMsgList();
-$money =getMoney();
-$back =getBackpage(1);
+$result=selectMechine();
 ?>
 
 <html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="text/javascript" src="jquery.js"></script>
-
-  <form>
-  <input type="button" value=" 背包~ " onClick="confirmChoice( )" >
-  </form>
-  <script>
-  function confirmChoice( ){　
-     if ( confirm ("<?php
-  if ($back) {
-  	while (	$rs=mysqli_fetch_assoc($back)) {
-  		echo $rs['quantity'];
-  		echo $rs['mname'];
-  	}
-  } else {
-  	echo "<tr><td>No data found!<td></tr>";
-  }
-  ?>") )
-  　　     {　document.authorPic.src="author.jpg"　}
-  }
-  </script>
-  <input type="button" id="btnAdd" value="Add Text Field">
-  <p id="fooBar">Fields:</p>
-<script language="javascript">
-  function add(type) {
-    //Create an input type dynamically.
-    var element = document.createElement("button");
-
-    //Assign different attributes to the element.
-    element.type = type;
-    element.value = type; // Really? You want the default value to be the type string?
-    element.name = type; // And the name too?
-    element.onclick = function() { // Note this is a function
-      alert("blabla");
-    };
-    var t = document.createTextNode("CLICK ME");
-    var foo = document.getElementById("fooBar");
-    //Append the element in page (in span).
-    element.appendChild(t);
-    foo.appendChild(element);
-  }
-  document.getElementById("btnAdd").onclick = function() {
-    add("text");
-  };
-  </script>
 
 <table width="200" border="1">
   <tr>
@@ -59,17 +14,6 @@ $back =getBackpage(1);
     <td>pwd</td>
     <td>money</td>
   </tr>
-<?php
-if ($money) {
-	while (	$rs=mysqli_fetch_assoc($money)) {
-		echo "<tr><td>" . $rs['pid'] . "</td>";
-		echo "<td>{$rs['pwd']}</td>";
-		echo "<td>" , $rs['money'], "</td></tr>";
-	}
-} else {
-	echo "<tr><td>No data found!<td></tr>";
-}
-?>
 </table>
 <script language="javascript">
 
@@ -106,9 +50,7 @@ function checkBomb() {
 			//expired, set the explode image and text
 			$("#bomb" + i).attr('src',"images/bread.png");
 			$("#timer"+i).html("bread!");
-      <?php
-      updateMechine(i,0);
-      ?>
+
 		} else {
 			//set the bomb image  and calculate count down
 			$("#bomb" + i).attr('src',"images/waiting.jpg");
@@ -132,17 +74,12 @@ window.onload = function () {
 $i=0;
 $arr = array(); //define an array for bombs
 while($row=mysqli_fetch_assoc($result)) {
-	$arr[] = $row; //store the row into the array
-	//generate the image tag, the div tag for timer text. Note on the use of $i in tag ID
+	$expirew= $row['expire'];
 	echo "<img src='images/waiting.jpg' id='bomb$i'>";
-  if($row['bid'] == 0){
-
     //echo"<button type="button" class="btn btn-default">Right</button>";
-    echo "<button onclick='handleBomb($i)'></button>";
-    echo "<button onclick='handleBomb($i)'>法國麵包</button>";
-    echo "<button onclick='handleBomb($i)'>甜甜圈</button>";
-    updateMechine($row['id'],1);
-  }
+  echo "<button onclick='handleBomb($i)'></button>";
+  echo "<button onclick='handleBomb($i)'>法國麵包</button>";
+  echo "<button onclick='handleBomb($i)'>甜甜圈</button>";
   echo "<div id='timer$i'>0</div>";
   $i++; //increase counter
 }
