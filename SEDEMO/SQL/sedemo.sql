@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主機: 127.0.0.1
--- 產生時間： 2016-12-20 12:49:59
+-- 產生時間： 2016-12-25 08:50:01
 -- 伺服器版本: 10.1.19-MariaDB
 -- PHP 版本： 5.6.28
 
@@ -27,20 +27,26 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `bom` (
-  `bid` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
-  `flour` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
-  `sugar` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
-  `butter` varchar(10) COLLATE utf8_unicode_ci NOT NULL
+  `water` int(100) NOT NULL,
+  `bid` int(10) NOT NULL,
+  `mid` int(10) NOT NULL,
+  `quantity` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- 資料表的匯出資料 `bom`
 --
 
-INSERT INTO `bom` (`bid`, `flour`, `sugar`, `butter`) VALUES
-('吐司', '15g', '5g', '2g'),
-('法國麵包', '30g', '15g', '10g'),
-('波蘿麵包', '25g', '10g', '5g');
+INSERT INTO `bom` (`water`, `bid`, `mid`, `quantity`) VALUES
+(1, 1, 1, 15),
+(2, 1, 2, 20),
+(3, 1, 3, 5),
+(4, 2, 1, 15),
+(5, 2, 2, 35),
+(6, 2, 3, 10),
+(7, 3, 1, 20),
+(8, 3, 2, 18),
+(9, 3, 3, 6);
 
 -- --------------------------------------------------------
 
@@ -51,38 +57,19 @@ INSERT INTO `bom` (`bid`, `flour`, `sugar`, `butter`) VALUES
 CREATE TABLE `bread` (
   `bid` int(11) NOT NULL,
   `expire` datetime NOT NULL,
-  `bprice` int(11) NOT NULL
+  `quantity` int(10) DEFAULT NULL,
+  `bprice` int(11) NOT NULL,
+  `time` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- 資料表的匯出資料 `bread`
 --
 
-INSERT INTO `bread` (`bid`, `expire`, `bprice`) VALUES
-(1, '2016-12-13 21:00:00', 30),
-(2, '2016-12-22 00:00:00', 20),
-(3, '2016-12-14 00:00:00', 25);
-
--- --------------------------------------------------------
-
---
--- 資料表結構 `game`
---
-
-CREATE TABLE `game` (
-  `id` int(11) NOT NULL,
-  `bid` int(10) DEFAULT NULL,
-  `expire` datetime NOT NULL,
-  `name` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- 資料表的匯出資料 `game`
---
-
-INSERT INTO `game` (`id`, `bid`, `expire`, `name`) VALUES
-(1, 1, '2016-12-15 11:37:28', 'No 1'),
-(2, 1, '2016-12-15 11:37:36', 'No 2');
+INSERT INTO `bread` (`bid`, `expire`, `quantity`, `bprice`, `time`) VALUES
+(1, '2016-12-13 21:00:00', 446, 30, 3),
+(2, '2016-12-22 00:00:00', 458, 20, 10),
+(3, '2016-12-14 00:00:00', 472, 25, 5);
 
 -- --------------------------------------------------------
 
@@ -91,19 +78,23 @@ INSERT INTO `game` (`id`, `bid`, `expire`, `name`) VALUES
 --
 
 CREATE TABLE `machine` (
-  `Mid` int(11) NOT NULL,
-  `pid` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `Mechid` int(11) NOT NULL,
+  `pid` int(10) NOT NULL,
   `Mprice` int(11) NOT NULL,
   `status` int(11) NOT NULL,
-  `bid` varchar(10) COLLATE utf8_unicode_ci NOT NULL
+  `bid` int(10) NOT NULL,
+  `expire` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- 資料表的匯出資料 `machine`
 --
 
-INSERT INTO `machine` (`Mid`, `pid`, `Mprice`, `status`, `bid`) VALUES
-(1, '123', 1000, 0, '0');
+INSERT INTO `machine` (`Mechid`, `pid`, `Mprice`, `status`, `bid`, `expire`) VALUES
+(0, 1, 1000, 1, 1, '2016-12-25 00:37:10'),
+(1, 1, 1000, 1, 1, '2016-12-25 00:37:11'),
+(2, 1, 1000, 2, 2, '2016-12-25 00:37:41'),
+(3, 1, 1000, 3, 3, '2016-12-25 00:37:37');
 
 -- --------------------------------------------------------
 
@@ -122,9 +113,9 @@ CREATE TABLE `material` (
 --
 
 INSERT INTO `material` (`mid`, `mname`, `mprice`) VALUES
-(1, '麵粉', 70),
-(2, '油', 105),
-(3, '雞蛋', 14);
+(1, '麵粉', 53),
+(2, '油', 143),
+(3, '雞蛋', 17);
 
 -- --------------------------------------------------------
 
@@ -144,10 +135,10 @@ CREATE TABLE `minventory` (
 --
 
 INSERT INTO `minventory` (`water`, `pid`, `mid`, `quantity`) VALUES
-(1, 1, 1, 50),
-(2, 1, 2, 300),
-(3, 1, 3, 400),
-(4, 2, 1, 100),
+(1, 1, 1, 400),
+(2, 1, 2, 125),
+(3, 1, 3, 774),
+(4, 2, 1, 85),
 (5, 2, 2, 300),
 (6, 2, 3, 15);
 
@@ -163,16 +154,19 @@ CREATE TABLE `player` (
   `pwd` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `money` int(11) NOT NULL
+  `money` int(11) NOT NULL,
+  `mnuber` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- 資料表的匯出資料 `player`
 --
 
-INSERT INTO `player` (`pid`, `id`, `pwd`, `name`, `email`, `money`) VALUES
-(1, '1', '1', '軟工兒', 's256786@gmail', 9000),
-(2, '2', '0', '恩豪兒', '123456@gmail.com', 90000);
+INSERT INTO `player` (`pid`, `id`, `pwd`, `name`, `email`, `money`, `mnuber`) VALUES
+(1, '1', '1', '軟工兒', 's256786@gmail', 65609, 4),
+(2, '2', '0', '恩豪兒', '123456@gmail.com', 90315, 0),
+(3, '3', '3', '23', '33@gmail.com', 0, 0),
+(4, '55', '55', '55', '55@gmail.com', 9000, 0);
 
 --
 -- 已匯出資料表的索引
@@ -182,7 +176,7 @@ INSERT INTO `player` (`pid`, `id`, `pwd`, `name`, `email`, `money`) VALUES
 -- 資料表索引 `bom`
 --
 ALTER TABLE `bom`
-  ADD PRIMARY KEY (`bid`);
+  ADD PRIMARY KEY (`water`);
 
 --
 -- 資料表索引 `bread`
@@ -191,16 +185,10 @@ ALTER TABLE `bread`
   ADD PRIMARY KEY (`bid`);
 
 --
--- 資料表索引 `game`
---
-ALTER TABLE `game`
-  ADD PRIMARY KEY (`id`);
-
---
 -- 資料表索引 `machine`
 --
 ALTER TABLE `machine`
-  ADD PRIMARY KEY (`Mid`);
+  ADD PRIMARY KEY (`Mechid`);
 
 --
 -- 資料表索引 `material`
@@ -225,15 +213,15 @@ ALTER TABLE `player`
 --
 
 --
+-- 使用資料表 AUTO_INCREMENT `bom`
+--
+ALTER TABLE `bom`
+  MODIFY `water` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
 -- 使用資料表 AUTO_INCREMENT `bread`
 --
 ALTER TABLE `bread`
   MODIFY `bid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- 使用資料表 AUTO_INCREMENT `game`
---
-ALTER TABLE `game`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- 使用資料表 AUTO_INCREMENT `material`
 --
@@ -248,7 +236,7 @@ ALTER TABLE `minventory`
 -- 使用資料表 AUTO_INCREMENT `player`
 --
 ALTER TABLE `player`
-  MODIFY `pid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `pid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
