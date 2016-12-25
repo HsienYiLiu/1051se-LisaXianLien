@@ -48,7 +48,7 @@ if ($mertial) {
 		echo "<td><input type='text' name='{$rs['mid']}'></tr>";
 
 	}
-	echo "<td><input type = 'submit'>";
+	echo "<td><input type = 'submit' value ='購買'>";
 	echo "</form>";
 
 } else {
