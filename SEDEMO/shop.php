@@ -30,6 +30,7 @@ position:relative;
 　 <tr>
 　　 <th>材料</th>
 　　 <th>價錢</th>
+		<th>購買</th>
 　 </tr>
 <?php
 $mertial1=rand(50,70);
@@ -39,10 +40,17 @@ updateMeterial(1,$mertial1);
 updateMeterial(2,$mertial2);
 updateMeterial(3,$mertial3);
 if ($mertial) {
+	echo "<form action='buy.php' method='post'>";
+
 	while (	$rs=mysqli_fetch_assoc($mertial)) {
 		echo "<tr><td>{$rs['mname']}</td>";
-		echo "<td>" , $rs['mprice'], "</td></tr>";
+		echo "<td>" , $rs['mprice'], "</td>";
+		echo "<td><input type='text' name='{$rs['mid']}'></tr>";
+
 	}
+	echo "<td><input type = 'submit'>";
+	echo "</form>";
+
 } else {
 	echo "<tr><td>No data found!<td></tr>";
 }

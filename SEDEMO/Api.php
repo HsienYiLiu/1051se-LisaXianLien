@@ -2,7 +2,7 @@
 require("dbconnect.php");
 function getMsgList() {
     global $conn;
-    $sql = "select * from game;";
+    $sql = "select * from bread;";
     return mysqli_query($conn,$sql);
 }
   function selectMechine() {
@@ -12,7 +12,7 @@ function getMsgList() {
 }
 function updateTime($newD,$i) {
     global $conn;
-    $sql = "update game set expire ='$newD' where id=$i";
+    $sql = "UPDATE `machine` SET `expire`='$newD' WHERE `Mechid`= $i;";
     return mysqli_query($conn,$sql);
 }
 function getMoney($pid) {
@@ -47,13 +47,32 @@ function getBackpage($i) {
 }
 function getBread() {
     global $conn;
-    $sql = "SELECT bid,quantity FROM `bread`";
+    $sql = "SELECT bid,quantity,time FROM `bread`";
     return mysqli_query($conn,$sql);
+}
+function gettime($id) {
+    global $conn;
+    $sql = "SELECT time FROM bread where bid = $id;";
+    $result = mysqli_query($conn,$sql);
+    $rs = mysqli_fetch_assoc($result);
+    return "123";
 }
 function updateSell($i) {
     global $conn;
-    $sql = "UPDATE `bread` SET `quantity`= quantity-1  WHERE  `bid` = $i";
+    $sql = "UPDATE `bread` SET `quantity`= quantity-1  WHERE  `bid` = $i;";
     return mysqli_query($conn,$sql);
+}
+function plusSell($i) {
+    global $conn;
+    $sql = "UPDATE `bread` SET `quantity`= quantity+1  WHERE  `bid` = $i;";
+    return mysqli_query($conn,$sql);
+}
+function buyMaterial($i,$mid,$quantity) {
+    global $conn;
+    $sql = "UPDATE `minventory` SET `quantity`= quantity + $quantity WHERE mid = $mid and pid = $i;";
+    mysqli_query($conn,$sql);
+    $sql1 = "UPDATE player SET player.money = player.money -(SELECT material.mprice from material where mid = $mid)*$quantity where pid = $i;";
+    mysqli_query($conn,$sql1);
 }
 function MechineMoney($i) {
     global $conn;
@@ -73,6 +92,16 @@ function bake($status,$mechine,$id){
 function minisBom($bid,$mid,$i){
   global $conn;
   $sql = "UPDATE minventory set quantity = quantity -(SELECT quantity FROM `bom` WHERE bid = $bid and mid = $mid) where mid = $mid and pid = $i";
+  return mysqli_query($conn,$sql);
+}
+function openBag($i){
+  global $conn;
+  $sql = "SELECT `quantity` FROM `minventory` WHERE `pid`= $i ;";
+  return mysqli_query($conn,$sql);
+}
+function breadNeed($bid){
+  global $conn;
+  $sql = "SELECT quantity FROM `bom` WHERE bid = $bid ;";
   return mysqli_query($conn,$sql);
 }
 ?>

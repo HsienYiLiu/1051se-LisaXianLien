@@ -1,7 +1,6 @@
 <?php
 session_start();
 require("Api.php");
-$i=(int)$_POST['id'];
 $newD = date("Y-m-d H:i:s",strtotime("+421 minutes"));
-updateTime($newD,$i);
+updateTime($newD ,intval($_POST['bombID']));
 ?>
